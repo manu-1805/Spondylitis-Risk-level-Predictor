@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spondylitis Risk Predictor - MNIT Jaipur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #f1f5f9;
+      --card: #ffffff;
+      --violet-soft: #f3e8ff;
+      --violet: #d8b4fe;
+      --violet-strong: #7e22ce;
+      --yellow-soft: #fef9c3;
+      --yellow: #eab308;
+      --text: #0f172a;
+      --text-soft: #475569;
+      --border: #e2e8f0;
+      --warn: #ef4444;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .navbar,
+    .form-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 6vw;
+      background: var(--card);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand,
+    .fnav-brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--violet-strong);
+    }
+
+    .nav-tag,
+    .prog-label {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .hero,
+    .form-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      padding: 80px 6vw 36px;
+    }
+
+    .hero-card,
+    .section-card,
+    .q-card,
+    .cta-banner,
+    .submit-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      max-width: 860px;
+      padding: 38px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--violet-strong);
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--violet-strong);
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 7vw, 74px);
+      line-height: 1.04;
+      color: var(--violet-strong);
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-divider {
+      width: 56px;
+      height: 3px;
+      background: var(--violet);
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+
+    .hero-desc {
+      max-width: 700px;
+      margin-bottom: 14px;
+      color: var(--text-soft);
+    }
+
+    .hero-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 12px 18px;
+      background: var(--yellow-soft);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .hero-note strong {
+      color: var(--violet-strong);
+    }
+
+    .note-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .content {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 8px 6vw 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 18px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--violet-strong);
+    }
+
+    .sec-head::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section-card {
+      padding: 26px 28px;
+    }
+
+    .section-card h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+      color: var(--violet-strong);
+    }
+
+    .section-card p {
+      color: var(--text-soft);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--violet-soft);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      color: var(--text-soft);
+    }
+
+    .list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--violet);
+      margin-top: 9px;
+      flex-shrink: 0;
+    }
+
+    .list strong {
+      color: var(--text);
+    }
+
+    .cta-banner {
+      margin-top: 18px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: var(--yellow-soft);
+    }
+
+    .cta-banner h3 {
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.2;
+      color: var(--violet-strong);
+    }
+
+    .cta-banner p {
+      max-width: 360px;
+      color: var(--text-soft);
+    }
+
+    .enter-btn,
+    .enter-btn-alt,
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 28px;
+      border: none;
+      border-radius: 999px;
+      background: var(--violet);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(166, 122, 232, 0.18);
+    }
+
+    .enter-btn:hover,
+    .enter-btn-alt:hover,
+    .submit-btn:hover {
+      box-shadow: 0 16px 28px rgba(166, 122, 232, 0.22);
+    }
+
+    .page-footer {
+      text-align: center;
+      padding: 34px 0 10px;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .page-footer strong {
+      color: var(--text);
+    }
+
+    #page2 {
+      background: transparent;
+    }
+
+    .prog-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .prog-track {
+      width: 160px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--violet-strong);
+      transition: width 0.3s ease;
+    }
+
+    .back-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text-soft);
+      font-family: "Inter", sans-serif;
+      cursor: pointer;
+    }
+
+    .form-body {
+      padding: 44px 6vw 90px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .form-heading {
+      max-width: 680px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .form-heading h2 {
+      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      color: var(--violet-strong);
+    }
+
+    .form-heading p {
+      color: var(--text-soft);
+    }
+
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 18px;
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .q-card {
+      padding: 24px 24px 22px;
+      border-left: 4px solid transparent;
+    }
+
+    .q-card.answered {
+      border-left-color: var(--violet-strong);
+    }
+
+    .q-num {
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .q-lbl {
+      margin-bottom: 16px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .opts {
+      display: grid;
+      gap: 8px;
+    }
+
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      background: var(--violet-soft);
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .opt:hover {
+      border-color: var(--border);
+      background: var(--violet);
+    }
+
+    .opt.sel {
+      border-color: var(--violet-strong);
+      background: var(--violet);
+    }
+
+    .o-index {
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--violet-strong);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .o-radio {
+      width: 15px;
+      height: 15px;
+      margin-top: 4px;
+      border-radius: 50%;
+      border: 1px solid var(--text-soft);
+      flex-shrink: 0;
+    }
+
+    .opt.sel .o-radio {
+      border-color: var(--violet-strong);
+      background: var(--violet-strong);
+      box-shadow: inset 0 0 0 4px #fff;
+    }
+
+    .o-txt {
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .opt.sel .o-txt {
+      color: var(--text);
+    }
+
+    .sl-wrap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .sl-disp {
+      text-align: center;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--violet-strong);
+    }
+
+    .sl-disp span {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-soft);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--border);
+      border-radius: 999px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--violet-strong);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--violet-strong);
+      cursor: pointer;
+    }
+
+    .sl-labs {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    .submit-wrap {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 26px;
+      text-align: center;
+    }
+
+    .warn-msg {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--warn);
+    }
+
+    .sub-note {
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: var(--yellow-soft);
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-kicker {
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--violet-strong);
+    }
+
+    .result-title {
+      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .result-desc,
+    .result-meta {
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .prog-track {
+        width: 96px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-card,
+      .section-card,
+      .cta-banner,
+      .submit-wrap,
+      .q-card {
+        padding: 22px;
+      }
+
+      .q-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="page1" class="page active">
+    <nav class="navbar">
+      <div class="nav-brand">Spondylitis Risk Predictor</div>
+      <div class="nav-tag">MNIT Jaipur</div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-eyebrow">Spinal Health Assessment</div>
+        <h1 class="hero-title">Spondylitis</h1>
+        <div class="hero-subtitle">Student Project Risk Form</div>
+        <div class="hero-divider"></div>
+        <p class="hero-desc">
+          Spondylitis is an inflammatory condition that affects the spine and nearby joints. It can lead to pain,
+          stiffness, and reduced flexibility if symptoms are ignored.
+        </p>
+        <p class="hero-desc">
+          This web is a project of students of MNIT Jaipur. It gives a brief educational form based on posture, sleep,
+          lifestyle, and pain-related questions.
+        </p>
+        <div class="hero-note">
+          <span class="note-dot"></span>
+          <span>Prepared by <strong>MNIT Jaipur students</strong> for educational use</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="content">
+      <div class="sec-head">Brief Introduction</div>
+      <div class="stack">
+        <div class="section-card">
+          <h3>About Spondylitis</h3>
+          <p>Spondylitis usually affects the back and spine. Common warning signs include stiffness, posture-related
+            pain, sleep discomfort, and long sitting hours.</p>
+        </div>
+        <div class="section-card">
+          <h3>About This Website</h3>
+          <p>This website is kept brief and simple. It is a student project from MNIT Jaipur that collects short
+            response data for awareness and study purposes.</p>
+        </div>
+      </div>
+
+      <div class="sec-head">Common Risk Signals</div>
+      <div class="section-card">
+        <div class="chips">
+          <span class="chip">Sedentary Lifestyle</span>
+          <span class="chip">Poor Posture</span>
+          <span class="chip">Morning Stiffness</span>
+          <span class="chip">Back or Heel Pain</span>
+          <span class="chip">Low Physical Activity</span>
+          <span class="chip">Disturbed Sleep</span>
+        </div>
+      </div>
+
+      <div class="sec-head">Before You Start</div>
+      <div class="two-col">
+        <div class="section-card">
+          <ul class="list">
+            <li><span><strong>Short form:</strong> the next page asks a brief set of questions.</span></li>
+            <li><span><strong>Numbered choices:</strong> every option is shown with 0, 1, 2, or 3.</span></li>
+            <li><span><strong>Stored as numbers:</strong> selected options are saved as option numbers, not text
+                labels.</span></li>
+          </ul>
+        </div>
+        <div class="section-card">
+          <ul class="list">
+            <li><span><strong>Educational project:</strong> this is not a medical diagnosis tool.</span></li>
+            <li><span><strong>Student work:</strong> created as a project by students of Malaviya National Institute of
+                Technology, Jaipur.</span></li>
+            <li><span><strong>Next step:</strong> use the button below to enter details.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-banner" id="ctaBanner">
+        <div>
+          <h3>Read briefly, then enter details.</h3>
+        </div>
+        <p>The form is short and your selected options are stored in numeric format for the project data.</p>
+        <button class="enter-btn-alt" onclick="goToPage2()">
+          Enter Details
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="page-footer">
+        <p>Developed by students of <strong>Malaviya National Institute of Technology, Jaipur</strong><br>This tool is
+          for educational purposes only and does not constitute medical advice.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="page2" class="page">
+    <nav class="form-nav">
+      <div class="fnav-brand">Spondylitis Risk Predictor</div>
+      <div class="prog-wrap">
+        <div class="prog-track">
+          <div class="prog-fill" id="pFill"></div>
+        </div>
+        <div class="prog-label" id="pLabel">0 / 12</div>
+      </div>
+      <button class="back-btn" onclick="goToPage1()">Back</button>
+    </nav>
+
+    <div class="form-body">
+      <div class="form-heading">
+        <h2>Your Lifestyle Profile</h2>
+        <p>Answer all questions honestly. Option questions are displayed with number codes, and those codes are stored
+          as the selected data.</p>
+      </div>
+
+      <div class="q-grid" id="qGrid"></div>
+
+      <div class="submit-wrap">
+        <div class="warn-msg" id="warnMsg">Please answer all questions before submitting.</div>
+        <p class="sub-note" id="subNote">0 of 12 questions answered</p>
+        <button class="submit-btn" onclick="handleSubmit()">
+          Analyse My Risk
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="page3" class="page">
+    <nav class="form-nav">
+      <div class="fnav-brand">Assessment Complete</div>
+      <div class="prog-wrap">
+        <div class="prog-track">
+          <div class="prog-fill" style="width: 100%;"></div>
+        </div>
+        <div class="prog-label">12 / 12</div>
+      </div>
+      <button class="back-btn" onclick="goToPage1()">Retake</button>
+    </nav>
+
+    <div class="content">
+      <div class="hero-card" style="text-align: center; margin: 40px auto; max-width: 760px;">
+        <div class="hero-eyebrow">Risk Analysis Result</div>
+        <h1 class="hero-title" id="p3RiskLvl" style="font-size: clamp(32px, 5vw, 54px);"></h1>
+        <div class="hero-divider" style="margin: 0 auto 22px;"></div>
+        <p class="hero-desc" id="p3Desc" style="margin: 0 auto 20px; color: var(--text-soft);"></p>
+
+        <div class="section-card"
+          style="margin-top: 24px; text-align: left; padding: 24px; background: var(--yellow-soft); border: 1px solid var(--border);">
+          <h3 style="margin-bottom: 8px; color: var(--violet-strong); font-size: 18px;">Health Suggestion</h3>
+          <p id="p3Sugg" style="color: var(--text); font-size: 15px;"></p>
+        </div>
+
+        <div class="section-card" style="margin-top: 24px; padding: 20px;">
+          <h3 style="margin-bottom: 16px; color: var(--violet-strong); font-size: 18px; text-align: left;">Cluster
+            Analysis Graph</h3>
+          <img id="p3Graph" src="" alt="Cluster Graph"
+            style="width: 100%; border-radius: 12px; border: 1px solid var(--border);" />
+          <p style="margin-top: 12px; font-size: 13px; color: var(--text-soft); text-align: left;" id="p3Meta"></p>
+        </div>
+
+        <div class="section-card" style="margin-top: 24px; padding: 20px;">
+          <h3 style="margin-bottom: 16px; color: var(--violet-strong); font-size: 18px; text-align: left;">Model
+            Evaluation Metrics</h3>
+          <div style="text-align: left; font-size: 14px; line-height: 1.8; color: var(--text);">
+            <div
+              style="background: var(--surface); padding: 12px 18px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border);">
+              <strong style="color: var(--violet-strong);">Silhouette Score:</strong> <span id="p3Silhouette"
+                style="font-weight: 600;"></span><br>
+              <span style="font-size: 13px; color: var(--text-soft);">Measures cluster density. Closer to 1 is
+                better.</span>
+            </div>
+            <div
+              style="background: var(--surface); padding: 12px 18px; border-radius: 12px; border: 1px solid var(--border);">
+              <strong style="color: var(--warn);">Davies-Bouldin Index:</strong> <span id="p3Davies"
+                style="font-weight: 600;"></span><br>
+              <span style="font-size: 13px; color: var(--text-soft);">Measures cluster separation. Lower score is
+                better.</span>
+            </div>
+            <div
+              style="background: var(--surface); padding: 12px 18px; border-radius: 12px; border: 1px solid var(--border); margin-top: 10px;">
+              <strong style="color: var(--warn);">Calinski-Harabasz Index:</strong> <span id="p3Calinski"
+                style="font-weight: 600;"></span><br>
+              <span style="font-size: 13px; color: var(--text-soft);">Measures cluster variance ratio. Higher score is better.</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 36px;">
+          <button class="submit-btn" onclick="goToPage1()">
+            Back to Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const qs = [
+      { id: "sitting_hours", lbl: "How many hours do you typically sit in a day? (work, study, screen time, travel, etc.)", type: "slider", min: 0, max: 16, def: 6, unit: "hrs / day" },
+      { id: "gender", lbl: "What is your gender?", type: "opts", opts: ["Female", "Male"] },
+      { id: "morning_stiffness", lbl: "Do you feel stiffness in your body when you wake up in the morning?", type: "opts", opts: ["No, I feel completely fine", "Mild stiffness that fades quickly", "Moderate stiffness that takes time to ease", "Severe stiffness lasting a long time"] },
+      { id: "persistent_pain", lbl: "Do you have persistent pain in your back, neck, or heel?", type: "opts", opts: ["No pain at all", "Yes - started less than 3 months ago", "Yes - ongoing for about 3 months", "Yes - persisting for more than 3 months"] },
+      { id: "sitting_posture", lbl: "How would you describe your usual sitting posture?", type: "opts", opts: ["Straight and upright", "Slightly slouched", "Noticeably hunched or bent forward"] },
+      { id: "sleeping_posture", lbl: "What is your usual sleeping position?", type: "opts", opts: ["On my back", "On my side", "I change positions frequently", "On my stomach"] },
+      { id: "sleep_turning", lbl: "Do you have difficulty turning sides while sleeping?", type: "opts", opts: ["No difficulty at all", "Mild difficulty sometimes", "Moderate difficulty", "Significant pain or difficulty turning"] },
+      { id: "sleep_quality", lbl: "How would you rate the overall quality of your sleep?", type: "opts", opts: ["Excellent - I wake up feeling refreshed", "Good - mostly restful", "Average - could be better", "Poor - I rarely feel well-rested"] },
+      { id: "physical_activity", lbl: "How often do you engage in physical activity - exercise, sports, or regular walking?", type: "opts", opts: ["Every day", "A few times a week", "Rarely - once in a while", "Never"] },
+      { id: "ott_usage", lbl: "How often do you watch OTT platforms or stream content (Netflix, YouTube, etc.)?", type: "opts", opts: ["Very rarely - once in a few months", "About once a month", "Weekly", "Regularly - almost every day"] },
+      { id: "family_backpain", lbl: "Do your parents or close family members have a history of back pain?", type: "opts", opts: ["No, not at all", "Possibly, but never formally diagnosed", "Yes - diagnosed by a doctor"] },
+      { id: "gut_infection", lbl: "Have you ever been diagnosed with a gut or intestinal infection?", type: "opts", opts: ["No, never", "Yes - a moderate, diagnosed case", "Yes - a severe, diagnosed case"] }
+    ];
+
+    const ans = {};
+    let isSubmitting = false;
+    const API_BASE_URL = (window.location.protocol === "file:") ? "http://127.0.0.1:5000" : "";
+
+    function buildQs() {
+      const grid = document.getElementById("qGrid");
+
+      qs.forEach((question, index) => {
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `c_${question.id}`;
+        card.innerHTML = `<div class="q-num">Question ${index + 1} of ${qs.length}</div><div class="q-lbl">${question.lbl}</div>`;
+
+        if (question.type === "slider") {
+          const wrap = document.createElement("div");
+          wrap.className = "sl-wrap";
+
+          const valueDisplay = document.createElement("div");
+          valueDisplay.className = "sl-disp";
+          valueDisplay.id = `sd_${question.id}`;
+          valueDisplay.innerHTML = `${question.def} <span>${question.unit}</span>`;
+
+          const slider = document.createElement("input");
+          slider.type = "range";
+          slider.min = question.min;
+          slider.max = question.max;
+          slider.value = question.def;
+
+          const labels = document.createElement("div");
+          labels.className = "sl-labs";
+          labels.innerHTML = `<span>${question.min} hrs</span><span>${question.max} hrs</span>`;
+
+          slider.addEventListener("input", () => {
+            valueDisplay.innerHTML = `${slider.value} <span>${question.unit}</span>`;
+            ans[question.id] = Number(slider.value);
+            card.classList.add("answered");
+            updateProgress();
+          });
+
+          ans[question.id] = question.def;
+          card.classList.add("answered");
+          wrap.append(valueDisplay, slider, labels);
+          card.appendChild(wrap);
+        } else {
+          const options = document.createElement("div");
+          options.className = "opts";
+
+          question.opts.forEach((label, optionIndex) => {
+            const option = document.createElement("div");
+            option.className = "opt";
+            option.innerHTML = `<div class="o-index">${optionIndex}</div><div class="o-radio"></div><div class="o-txt">${label}</div>`;
+
+            option.addEventListener("click", () => {
+              options.querySelectorAll(".opt").forEach((item) => item.classList.remove("sel"));
+              option.classList.add("sel");
+              ans[question.id] = optionIndex;
+              card.classList.add("answered");
+              updateProgress();
+            });
+
+            options.appendChild(option);
+          });
+
+          card.appendChild(options);
+        }
+
+        grid.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total = qs.length;
+      const answered = Object.keys(ans).length;
+      document.getElementById("pFill").style.width = `${(answered / total) * 100}%`;
+      document.getElementById("pLabel").textContent = `${answered} / ${total}`;
+      document.getElementById("subNote").textContent = `${answered} of ${total} questions answered`;
+    }
+
+    function goToPage2() {
+      document.getElementById("page1").classList.remove("active");
+      document.getElementById("page2").classList.add("active");
+      window.scrollTo(0, 0);
+      if (!document.getElementById("qGrid").childElementCount) {
+        buildQs();
+      }
+    }
+
+    function goToPage1() {
+      document.getElementById("page2").classList.remove("active");
+      const p3 = document.getElementById("page3");
+      if (p3) p3.classList.remove("active");
+      document.getElementById("page1").classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    function goToPage3(result) {
+      document.getElementById("page2").classList.remove("active");
+      document.getElementById("page1").classList.remove("active");
+      document.getElementById("page3").classList.add("active");
+      window.scrollTo(0, 0);
+
+      document.getElementById("p3RiskLvl").textContent = result.risk_level + " Risk Zone";
+      document.getElementById("p3Desc").textContent = result.description;
+      document.getElementById("p3Sugg").textContent = result.suggestion;
+      document.getElementById("p3Graph").src = result.graph_b64;
+      document.getElementById("p3Meta").textContent = `Assigned to Risk Cluster ${result.cluster} based on your 12 behavioral inputs.`;
+      document.getElementById("p3Silhouette").textContent = result.metrics.silhouette;
+      document.getElementById("p3Davies").textContent = result.metrics.davies_bouldin;
+      if(result.metrics.calinski_harabasz !== undefined) {
+        document.getElementById("p3Calinski").textContent = result.metrics.calinski_harabasz;
+      }
+    }
+
+
+
+    async function handleSubmit() {
+      const total = qs.length;
+      const answered = Object.keys(ans).length;
+      const warnMsg = document.getElementById("warnMsg");
+      const submitBtn = document.querySelector(".submit-btn");
+
+      if (answered < total) {
+        warnMsg.style.display = "block";
+        warnMsg.textContent = "Please answer all questions before submitting.";
+        const firstMissing = qs.find((question) => ans[question.id] === undefined);
+        if (firstMissing) {
+          const card = document.getElementById(`c_${firstMissing.id}`);
+          card.style.borderLeftColor = "rgba(199, 132, 94, 0.7)";
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        return;
+      }
+
+      if (isSubmitting) {
+        return;
+      }
+
+      isSubmitting = true;
+      warnMsg.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      submitBtn.style.cursor = "wait";
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/predict`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ answers: ans })
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error(data.message || "Prediction request failed.");
+        }
+
+        console.log("Collected data:", ans);
+        goToPage3(data.result);
+      } catch (error) {
+        warnMsg.style.display = "block";
+        warnMsg.innerHTML = `<strong>Backend is not running.</strong><br>We could not connect to the server. Please run <code>python app.py</code> in your terminal or double-click <code>start_website.bat</code>, then test again.`;
+      } finally {
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+      }
+    }
+  </script>
+</body>
+
+</html>
